@@ -16,8 +16,6 @@ import Link from "next/link"
 
 import { signIn } from "next-auth/react";
 
-import { useSession, signOut } from 'next-auth/react' 
-
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 
@@ -35,7 +33,7 @@ export function LoginForm({
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
-  const [formData, setFormData] = useState<any>({
+  const [formData, setFormData] = useState<SignUpFormData>({
     email: "",
     password: "",
   });

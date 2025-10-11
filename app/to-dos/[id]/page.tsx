@@ -1,8 +1,10 @@
 
-import TasksDialog from "../../../components/todosComponents/Dialogs/TaskDialog/TaskDialog";
+// import TasksDialog from "../../../components/todosComponents/Dialogs/TaskDialog/TaskDialog";
 import { getSession } from "@/app/actions/getUser";
 import { redirect } from "next/navigation";
 import TasksWithId from "./TasksWithId";
+import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
 
 interface TaskListId {
   id: string;
@@ -19,9 +21,29 @@ const page = async ({ params }: { params: TaskListId}) => {
       return redirect("/");
     }
 
+    const tasks = await prisma.task.findMany({
+      where: {
+        AND: [
+          { userEmail: session?.user?.email },
+          { taskListId: params.id }
+        ]
+      }
+    })
+
+
+    const tasksList = await prisma.task.findMany({
+      where: { userEmail : session?.user?.email }
+    })
+
+
+    const pageTasksList = await prisma.taskList.findUnique({
+      where: { id: params.id }
+    })
+
   return (
     <>
-    <TasksWithId id={params.id} email={session?.user?.email} />
+    <TasksWithId id={params.id} email={session?.user?.email} tasks={tasks}
+    tasksList={tasksList} pageTasksList={pageTasksList} />
     </>
   )
 }

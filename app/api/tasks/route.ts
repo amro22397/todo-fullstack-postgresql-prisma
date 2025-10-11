@@ -1,34 +1,46 @@
-import Tasks from "@/models/tasks";
-import mongoose from "mongoose";
+// import Tasks from "@/models/tasks";
+// import mongoose from "mongoose";
+
+import prisma from "@/lib/prisma";
 
 
 export async function POST(request: Request) {
 
-    mongoose.connect(process.env.MONGO_URL as string)
+    // mongoose.connect(process.env.MONGO_URL as string)
 
     const body = await request.json();
 
-    const task = await Tasks.create(body);
+    // const task = await Tasks.create(body);
+
+    const task = await prisma.task.create({
+        data: body 
+    })
 
     return Response.json(task);
 }
 
 
 export async function PUT(request: Request) {
-    mongoose.connect(process.env.MONGO_URL as string)
+    // mongoose.connect(process.env.MONGO_URL as string)
     
     const body = await request.json();
     const { id, ...rest } = body
 
-    const task = await Tasks.findByIdAndUpdate(id, rest);
+    // const task = await Tasks.findByIdAndUpdate(id, rest);
+    const task = await prisma.task.update({
+        where: { id: id },
+        data: rest,
+    })
 
     return Response.json(task);
 }
 
 export async function DELETE() {
-    mongoose.connect(process.env.MONGO_URL as string)
+    // mongoose.connect(process.env.MONGO_URL as string)
 
-    const tasks = await Tasks.deleteMany({})
+    // const tasks = await Tasks.deleteMany({})
+
+    const tasks = await prisma.task.deleteMany()
 
     return Response.json(tasks)
 }

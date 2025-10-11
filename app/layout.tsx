@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css";
 import AppProvider from "@/AppContext.js"
 import AppContextProvider from "@/context/AppContext";

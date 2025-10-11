@@ -16,9 +16,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import ComboboxDemo from "./PriorityCombobox";
 
-import { toast } from "@/hooks/use-toast";
-import { nanoid } from "nanoid";
-import { useContext, useEffect, useState } from "react";
+// import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner"
+// import { nanoid } from "nanoid";
+import { useState } from "react";
 import { SlOptions } from "react-icons/sl";
 
 
@@ -47,18 +48,17 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 
-import { AppContext } from "@/context/AppContext";
+// import { AppContext } from "@/context/AppContext";
 import axios from "axios";
-import { error } from "console";
 
 const TasksOptions = ({
   singleTask,
-  id,
-  fetchTasks,
+  // id,
+  // fetchTasks,
 }: {
   singleTask: Task;
-  id: string;
-  fetchTasks: () => void;
+  // id: string;
+  // fetchTasks: () => void;
 }) => {
 
   {/*
@@ -73,41 +73,42 @@ const TasksOptions = ({
 
   // const { user } = useUserStore();
 
-  const [actionClicked, setActionClicked] = useState("");
+  // const [actionClicked, setActionClicked] = useState("");
   const [isTaskDialogOpened, setIsTaskDialogOpened] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [copyLoading, setCopyLoading] = useState(false);
+  // const [copyLoading, setCopyLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: singleTask?.name || "", priority: singleTask?.priority || "", status: singleTask?.status || "", userId: singleTask?.userId || ""
   });
 
 
-  const handleItemClick = (action: string) => {
+  // const handleItemClick = (action: string) => {
 
-  }
+  // }
 
   const handleEdit = async (e: any) => {
     e.preventDefault();
 
     setLoading(true);
 
-    axios.put("/api/tasks", { id: singleTask?._id, ...formData })
+    axios.put("/api/tasks", { id: singleTask?.id, ...formData })
     .then(() => {
-      toast({
-        title: "Task updated successfully"
-      })
+      
+      toast.success("Task updated successfully")
     })
     .then(() => {
       setIsTaskDialogOpened(false);
-      fetchTasks();
+      // fetchTasks();
     })
+    .then(() => {
+        window.location.reload()
+    })
     .catch((error) => {
-      toast({
-        title: `${error}`
-      })
+
+      toast.error(`${error}`)
     })
     .finally(() => {
       setLoading(false)
@@ -119,24 +120,23 @@ const TasksOptions = ({
   const handleCopy = async (e: any) => {
     e.preventDefault();
 
-    setCopyLoading(true);
+    // setCopyLoading(true);
 
     try {
       
       await navigator.clipboard.writeText(singleTask.name);
 
-      toast({
-        className: "text-white bg-yellow-500 border-none",
-        title: "Copied to clipboard"
-      })
+      // toast({
+      //   className: "text-white bg-yellow-500 border-none",
+      //   title: "Copied to clipboard"
+      // })
+      toast.success("Copied to clipboard")
 
       setIsDropdownOpen(false);
 
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: `${error}`
-      })
+      
+      toast.error(`${error}`)
     }
 
   }
@@ -147,21 +147,22 @@ const TasksOptions = ({
 
     setLoading(true)
 
-    axios.delete(`/api/tasks/${singleTask?._id}`)
+    axios.delete(`/api/tasks/${singleTask?.id}`)
     .then(() => {
       setIsDropdownOpen(false);
       setIsAlertDialogOpen(false)
-      fetchTasks();
+      // fetchTasks();
     })
     .then(() => {
-      toast({
-        title: "Task deleted successfully"
-      })
+     
+      toast.success("Task deleted successfully")
     })
+    .then(() => {
+        window.location.reload()
+    })
     .catch((error) => {
-      toast({
-        title: `${error}`
-      })
+      
+      toast.error(`${error}`)
     })
     .finally(() => {
       setLoading(false)
@@ -194,7 +195,7 @@ const TasksOptions = ({
               <div className="">
                 <ComboboxDemo
                   singleTask={singleTask}
-                  fetchTasks={fetchTasks}
+                  // fetchTasks={fetchTasks}
                   className="text-center"
                 />
               </div>

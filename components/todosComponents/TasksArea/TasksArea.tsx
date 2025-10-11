@@ -6,7 +6,7 @@ import ComboboxDemo from "./PriorityCombobox";
 import TasksOptions from "./TasksOptions";
 // import { useTasksStore } from "@/app/stores/useTasksStore";
 import { Task, TaskList } from "@/app/data/Tasks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaUmbrellaBeach } from "react-icons/fa6";
 import CheckBoxComponent from "./CheckBoxComponent";
 import axios from "axios";
@@ -15,12 +15,16 @@ import axios from "axios";
 // import { useUserStore } from "@/app/stores/useUserStore";
 
 
-const TasksArea = ({ tasks, tasksList, fetchTasks }: {
+const TasksArea = ({ tasks, tasksList, 
+  // fetchTasks
+ }: {
   tasks: Task[],
   tasksList?: TaskList[],
-  fetchTasks: () => void
+  // fetchTasks: () => void
 }) => {
  // const { tasks, fetchTasks } = useTasksStore();
+
+ console.log(tasks)
 
 
   return (
@@ -43,11 +47,16 @@ const TasksArea = ({ tasks, tasksList, fetchTasks }: {
         </div>
       ) : (
         <>
-          {tasks.map((singleTask, index) => (
+          {tasks.map((singleTask, index) => {
+
+            console.log(singleTask)
+          return (
             <div className="" key={index}>
-              <SingleTask key={singleTask.id} singleTask={singleTask} id={singleTask._id} fetchTasks={fetchTasks} />
+              <SingleTask key={singleTask.id} singleTask={singleTask} id={singleTask.id} 
+              // fetchTasks={fetchTasks}
+               />
             </div>
-          ))}
+          )})}
         </>
       )}
     </ScrollArea>
@@ -55,27 +64,31 @@ const TasksArea = ({ tasks, tasksList, fetchTasks }: {
 }
 
 
-export function SingleTask({ singleTask, id, fetchTasks }: { 
+export function SingleTask({ singleTask, id, 
+  // fetchTasks
+ }: { 
   singleTask: Task,
   id: string,
-  fetchTasks: () => void
+  // fetchTasks: () => void
  }) {
 
   console.log(id);
+
+  console.log(singleTask)
   
 
-  const [task, setTask] = useState({});
+//   const [task, setTask] = useState({});
   
-  const fetchTasksByID = async () => {
-    const res = await axios.get(`/api/task-by-id?taskId=${id}`);
-    console.log(res.data)
+//   const fetchTasksByID = async () => {
+//     const res = await axios.get(`/api/task-by-id?taskId=${id}`);
+//     console.log(res.data)
 
-    setTask(res.data.data);
-}
+//     setTask(res.data.data);
+// }
 
-useEffect(() => {
-  fetchTasksByID();
-}, [id]);  
+// useEffect(() => {
+//   fetchTasksByID();
+// }, [id]);  
 
 
   const lowerOpacity = singleTask.status === "completed" && "opacity-65"
@@ -86,13 +99,16 @@ useEffect(() => {
     setLoading(true);
 
     axios.put("/api/tasks/update-status", {
-        id: singleTask?._id,
+        id: singleTask?.id,
         status: singleTask.status === "completed" ? "in progress" : "completed",
     })
     .then(() => {
         setLoading(false);
-        fetchTasks();
+        // fetchTasks();
     })
+    .then(() => {
+        window.location.reload()
+    })
     .catch((error) => {
         console.log(error);
     })
@@ -105,7 +121,9 @@ useEffect(() => {
     >
       <div className="flex items-center gap-4">
 
-        <CheckBoxComponent singleTask={singleTask} fetchTasks={fetchTasks} handleCheckboxChange={handleCheckboxChange}
+        <CheckBoxComponent singleTask={singleTask} 
+        // fetchTasks={fetchTasks} 
+        handleCheckboxChange={handleCheckboxChange}
         loading={loading} />
 
         <div className="flex flex-row gap-[6px] items-center justify-center">
@@ -129,8 +147,13 @@ useEffect(() => {
         </div>
       </div>
       <div className="flex md:gap-3 items-center ">
-      <ComboboxDemo singleTask={singleTask} fetchTasks={fetchTasks} className="md:block hidden" />
-      <TasksOptions singleTask={singleTask} id={id} fetchTasks={fetchTasks} />
+      <ComboboxDemo singleTask={singleTask} 
+      // fetchTasks={fetchTasks}
+       className="md:block hidden" />
+      <TasksOptions singleTask={singleTask} 
+      // id={id} 
+      // fetchTasks={fetchTasks}
+       />
       </div>
     </div>
   )

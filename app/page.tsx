@@ -1,7 +1,6 @@
 import React from 'react'
 import LoginPage from '@/components/signIn/SignIn'
-import { useSession } from 'next-auth/react';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { getSession } from './actions/getUser';
 
 const page = async () => {

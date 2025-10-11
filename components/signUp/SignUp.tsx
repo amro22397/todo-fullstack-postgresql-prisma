@@ -14,10 +14,10 @@ import Link from "next/link";
 import { AppLogo } from "../AppLogo";
 import EmailInput from "../EmailInput";
 import PasswordInput from "../PasswordInput";
-import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner"
 
-import { signIn, useSession } from "next-auth/react";
+
+import { signIn } from "next-auth/react";
 
 import { useState } from "react";
 
@@ -28,10 +28,7 @@ import { Loader2 } from "lucide-react";
 
 
 const SignUp = () => {
-
-  const { toast } = useToast();
-  const router = useRouter();
-
+  // const router = useRouter();
 
   /* const methods = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
@@ -81,139 +78,144 @@ const SignUp = () => {
     });
   }; */
 
-
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [googleLoadind, setGoogleLoadind] = useState(false);
 
   // const session = useSession();
   //  console.log(session);
-  
-    const [formData, setFormData] = useState<any>({
-      email: "",
-      password: "",
+
+  const [formData, setFormData] = useState<SignUpFormData>({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
-  
-    const handleChange = (e: any) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      })
-    }
-  
-    console.log(formData)
+  };
 
+  console.log(formData);
 
-    const handleSignUpWithGoogle = async (e:any) => {
-      setGoogleLoadind(true);
+  const handleSignUpWithGoogle = async (e: any) => {
+    setGoogleLoadind(true);
 
     e.preventDefault();
-    signIn('google', {callbackUrl: '/to-dos'})
+    signIn("google", { callbackUrl: "/to-dos" });
 
     setGoogleLoadind(false);
+  };
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-
-
+    setLoading(true);
+    if (formData.password !== confirmPassword) {
+      toast.error("Passwords do not match")
+      setLoading(false);
+      return;
     }
 
+    axios
+      .post("/api/register", formData)
+      .then(() => {
+        toast.success("Account created successfully")
 
-    const handleSubmit = async (e:any) => {
-      e.preventDefault();
-
-      setLoading(true);
-      if (formData.password !== confirmPassword) {
-        toast({
-          variant: "destructive",
-          title: "Passwords do not match",
-        })
-        setLoading(false);
-        return;
-      }
-
-
-
-      axios.post("/api/register", formData).then(() => {
-        toast({
-          title: "Account created successfully",
-        });
-
-        signIn('credentials', {...formData, callbackUrl: '/to-dos'});
-      }).then((callback: any) => {
+        // make this after google auth
+        signIn("credentials", { ...formData, callbackUrl: "/to-dos" });
+      })
+      .then((callback: any) => {
         if (callback?.ok) {
-          toast({
-            title: "Logged in successfully"
-          })
+          toast.success("Logged in successfully")
         }
 
         if (callback?.error) {
-          toast({
-            title: `There is an error: ${callback?.error}`,
-          })
+          toast.error(`There is an error: ${callback?.error}`)
         }
-      }).catch((error) => {
-        toast({
-          title: "Something went wrong",
-        })
-        console.log(error);
-      }).finally(() => {
-        setLoading(false);
       })
-    }
-
+      .catch((error) => {
+        toast.error(`Something went wrong`)
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="">
       <AppLogo />
       <Card className="w-full max-w-sm py-2 dark:bg-zinc-900">
-        
-          <form onSubmit={handleSubmit}>
-            <CardHeader>
-              <CardTitle className="text-[22px] font-bold">Sign Up</CardTitle>
-              <CardDescription>
-                Enter your information to create an account
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-5 mt-3">
-              
-              <Button variant="outline" className="w-full" type="button"
-                              onClick={handleSignUpWithGoogle}>
+        <form onSubmit={handleSubmit}>
+          <CardHeader>
+            <CardTitle className="text-[22px] font-bold">Sign Up</CardTitle>
+            <CardDescription>
+              Enter your information to create an account
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-5 mt-3">
+            <Button
+              variant="outline"
+              className="w-full"
+              type="button"
+              onClick={handleSignUpWithGoogle}
+            >
+              {googleLoadind ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path
+                      d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Continue with Google
+                </>
+              )}
+            </Button>
 
-                                {googleLoadind ? <Loader2 className="animate-spin" /> : (
-                                  <>
-                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                  <path
-                                    d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                                Continue with Google
-                                  </>
-                                )}
-                              </Button>
+            <EmailInput
+              name="email"
+              label="Email"
+              onChange={handleChange}
+              value={formData.email}
+            />
+            <PasswordInput
+              name="password"
+              label="Password"
+              onChange={handleChange}
+              value={formData.password}
+            />
+            <PasswordInput
+              name="confirmPassword"
+              label="Confirm Password"
+              onChange={(e: any) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+            />
 
-              <EmailInput name="email" label="Email" onChange={handleChange} value={formData.email} />
-              <PasswordInput name="password" label="Password" onChange={handleChange} value={formData.password} />
-              <PasswordInput name="confirmPassword" label="Confirm Password" onChange={(e: any) => setConfirmPassword(e.target.value)}
-              value={confirmPassword} />
-              
-              <div className="mt-4 text-sm flex items-center justify-center gap-1">
-                <span>Already have an account?</span>
-                <Label className="text-primary">
-                  <Link href="/">Sign in</Link>
-                </Label>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" className="w-full text-white">
-                {loading ? <Loader2 className="animate-spin" /> : "Create Account"}
-              </Button>
-            </CardFooter>
-          </form>
-        
+            <div className="mt-4 text-sm flex items-center justify-center gap-1">
+              <span>Already have an account?</span>
+              <Label className="text-primary">
+                <Link href="/">Sign in</Link>
+              </Label>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button type="submit" className="w-full text-white">
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "Create Account"
+              )}
+            </Button>
+          </CardFooter>
+        </form>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

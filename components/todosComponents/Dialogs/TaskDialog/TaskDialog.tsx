@@ -13,15 +13,18 @@ import {
 import TaskForm from "./TaskForm";
 import { FaPlus } from "react-icons/fa";
 // import { useTasksStore } from "@/app/stores/useTasksStore";
-import { toast } from "@/hooks/use-toast";
+// import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner"
 import axios from "axios";
 import { useEffect, useState } from "react";
 // import { useUserStore } from "@/app/stores/useUserStore";
 
-const TaskDialog = ({ taskListId, email, fetchTasks }: { 
+const TaskDialog = ({ taskListId, email, 
+  // fetchTasks
+ }: { 
   taskListId?: string, 
   email: string | null | undefined,
-  fetchTasks: () => void
+  // fetchTasks: () => void
  }) => {
 
     const [formData, setFormData] = useState({
@@ -59,18 +62,19 @@ const TaskDialog = ({ taskListId, email, fetchTasks }: {
     axios.post("/api/tasks", formData)
     .then(() => {
       setIsTaskDialogOpened(false);
-      fetchTasks();
+      // fetchTasks();
     })
     .then(() => {
-      toast({
-        title: "Task added successfully",
-      })
+      
+      toast.success("Task added successfully")
     })
+    .then(() => {
+        window.location.reload()
+    })
     
     .catch((error) => {
-      toast({
-        title: `error ${error}`,
-      })
+      
+      toast.error(`error ${error}`)
     })
     .finally(() => {
       setLoading(false);

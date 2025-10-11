@@ -1,23 +1,23 @@
 "use client";
 
-import React, { useState } from 'react'
+import React from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Task } from '@/app/data/Tasks';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
+// import { useRouter } from 'next/navigation';
 
 
-const CheckBoxComponent = ({ singleTask, fetchTasks, handleCheckboxChange, loading }: { 
+const CheckBoxComponent = ({ singleTask, 
+  // fetchTasks, 
+  handleCheckboxChange, loading }: { 
   singleTask: Task,
-  fetchTasks: () => void,
+  // fetchTasks: () => void,
   handleCheckboxChange: () => void
   loading: boolean
 }) => {
     
 
-    const router = useRouter();
+    // const router = useRouter();
 
     
   return (

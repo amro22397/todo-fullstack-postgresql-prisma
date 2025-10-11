@@ -1,10 +1,11 @@
 import CredentialsProvider from "next-auth/providers/credentials"
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
-import User from "@/models/user";
+// import User from "@/models/user";
 import bcrypt from "bcrypt"
+import prisma from "@/lib/prisma";
 
 export const authConfig: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
@@ -33,8 +34,12 @@ export const authConfig: AuthOptions = {
                     throw new Error("Invalid email or password");
                 }
 
-                mongoose.connect(process.env.MONGO_URL as string);
-                const dbUser = await User.findOne({email: credentials.email})
+                // mongoose.connect(process.env.MONGO_URL as string);
+                // const dbUser = await User.findOne({email: credentials.email})
+
+                const dbUser = await prisma.user.findUnique({
+                    where: { email: credentials.email }
+                })
 
                 if (!dbUser || !dbUser?.hashedPassword) {
                     throw new Error("Invalid email or password");

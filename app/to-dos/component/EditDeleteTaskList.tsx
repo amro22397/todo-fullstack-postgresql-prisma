@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit, Edit2, Loader2, Trash } from 'lucide-react'
+import { Edit2, Loader2, Trash } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -14,11 +14,11 @@ import {
   } from "@/components/ui/dialog"
 import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
-import { Task, TaskList } from '@/app/data/Tasks'
+import { TaskList } from '@/app/data/Tasks'
 import axios from 'axios'
-import { toast } from '@/hooks/use-toast'
+import { toast } from "sonner"
 
 import {
     AlertDialog,
@@ -31,17 +31,19 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
   
 
-const EditDeleteTaskList = ({ tasklist, tasksList, email, fetchTasksList }: {
+const EditDeleteTaskList = ({ tasklist, tasksList, email, 
+  // fetchTasksList
+ }: {
   tasklist: TaskList, tasksList: TaskList[],
   email: string | null | undefined,
-  fetchTasksList: () => void,
+  // fetchTasksList: () => void,
 }) => {
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const pathname = usePathname();
 
@@ -73,20 +75,21 @@ const EditDeleteTaskList = ({ tasklist, tasksList, email, fetchTasksList }: {
 
     setLoading(true);
 
-    axios.put("/api/tasks-list", { id: tasklist._id, ...formData})
+    axios.put("/api/tasks-list", { id: tasklist.id, ...formData})
     .then(() => {
         setEditDialog(false);
-        toast({
-            title: "Task List updated successfully"
-        })
+        toast.success("Task List updated successfully")
+
     })
     .then(() => {
-      fetchTasksList();
+        window.location.reload()
     })
+    // .then(() => {
+    //   fetchTasksList();
+    // })
     .catch((error) => {
-        toast({
-            title: `${error}`
-        })
+        
+        toast.error(`${error}`)
     })
     .finally(() => {
         setLoading(false)
@@ -100,26 +103,26 @@ const EditDeleteTaskList = ({ tasklist, tasksList, email, fetchTasksList }: {
 
     setDeleteLoading(true);
 
-    axios.delete(`/api/tasks-list/${tasklist._id}`)
+    axios.delete(`/api/tasks-list/${tasklist.id}`)
     .then(() => {
       setDeleteDialog(false);
-        if (pathname.includes(tasklist._id)) {
-          const id = tasksList[0]._id;
+        if (pathname.includes(tasklist.id)) {
+          const id = tasksList[0].id;
         }
     })
     .then(() => {
-      toast({
-        variant: "destructive",
-          title: "Task List deleted successfully"
-      })
+
+      toast.success(`Task List deleted successfully`)
   })
   .then(() => {
-    fetchTasksList();
-  })
+        window.location.reload()
+    })
+  // .then(() => {
+  //   fetchTasksList();
+  // })
     .catch((error) => {
-        toast({
-            title: `${error}`
-        })
+        
+        toast.error(`${error}`)
     })
     .finally(() => {
       setDeleteLoading(false)
@@ -155,7 +158,7 @@ const EditDeleteTaskList = ({ tasklist, tasksList, email, fetchTasksList }: {
     <DialogHeader>
       <DialogTitle>Edit Task List</DialogTitle>
       <DialogDescription>
-      Edit this task list. Click save when you're done.
+      Edit this task list. Click save when you&apos;re done.
       </DialogDescription>
     </DialogHeader>
 

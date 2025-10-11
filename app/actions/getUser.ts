@@ -1,6 +1,6 @@
-import { User } from "@/models/user";
-import { authConfig } from "@/pages/api/auth/[...nextauth]";
-import mongoose from "mongoose";
+// import { User } from "@/models/user";
+// import { authConfig } from "@/pages/api/auth/[...nextauth]";
+// import mongoose from "mongoose";
 // import mongoose from "mongoose";
 
 
@@ -13,6 +13,7 @@ import type {
   NextApiResponse,
 } from "next"
 import type { NextAuthOptions } from "next-auth"
+import prisma from "@/lib/prisma"
 
 
 export const config = {
@@ -45,12 +46,22 @@ export function getSession(
         return null;
       }
 
-      mongoose.connect(process.env.MONGO_URL as string);
-      const currentUser = await User.findOne({email: session?.user?.email})
+      // mongoose.connect(process.env.MONGO_URL as string);
+      // const currentUser = await User.findOne({email: session?.user?.email})
+
+      const currentUser = await prisma.user.findUnique({
+        where: { email: session?.user?.email }
+      })
 
     if (!currentUser) {
         // mongoose.connect(process.env.MONGO_URL as string)
-        const user = await User.create({ email: session?.user?.email  })
+        // const user = await User.create({ email: session?.user?.email  })
+
+        const user = await prisma.user.create({
+          data: {
+            email: session?.user?.email
+          }
+        })
         return {
           ...user,
               createdAt: currentUser.createdAt.toString(),
@@ -65,7 +76,7 @@ export function getSession(
       };
     }
 
-    } catch (error: any) {
+    } catch (error) {
       
       console.log(error);
       

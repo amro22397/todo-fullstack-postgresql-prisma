@@ -3,7 +3,7 @@
 import * as React from "react";
 // import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -37,17 +37,19 @@ const priorities = [
   },
 ];
 
-const PriorityCombobox = ({ singleTask, fetchTasks, className }: { 
+const PriorityCombobox = ({ singleTask, 
+  // fetchTasks,
+   className }: { 
   singleTask: Task,
-  fetchTasks: () => void,
+  // fetchTasks: () => void,
   className?: string,
  }) => {
 
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState<string | null>("");
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [commandListOpen, setCommandListOpen] = React.useState(false);
+  // const [commandListOpen, setCommandListOpen] = React.useState(false);
   // const { updateTaskFunction, isLoading } = useTasksStore();
 
 
@@ -61,7 +63,7 @@ const PriorityCombobox = ({ singleTask, fetchTasks, className }: {
     setIsLoading(true);
 
     if (singleTask.priority !== value) {
-      axios.put("/api/task-priority", {id: singleTask._id, priority: value})
+      axios.put("/api/task-priority", {id: singleTask.id, priority: value})
       .then(() => {
         toast({
           title: "Priority updated successfully"
@@ -69,11 +71,15 @@ const PriorityCombobox = ({ singleTask, fetchTasks, className }: {
       })
       .then(() => {
         setIsLoading(false);
-        fetchTasks();
+        // fetchTasks();
       })
+      .then(() => {
+        window.location.reload()
+    })
       .then(() => {
         setOpen(false);
       })
+      
       .catch((error) => {
         toast({
           title: `${error}`

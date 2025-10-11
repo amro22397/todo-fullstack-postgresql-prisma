@@ -5,10 +5,14 @@ import React from 'react'
 import EditDeleteTaskList from './EditDeleteTaskList'
 import Link from 'next/link'
 
-const SidebarTaskLists = ({ tasksList, email, fetchTasksList }: {
+const SidebarTaskLists = ({ 
+  tasksList, 
+  email, 
+  // fetchTasksList
+ }: {
   tasksList: TaskList[],
   email: string | null | undefined,
-  fetchTasksList: () => void
+  // fetchTasksList: () => void
 }) => {
 
   function capitalizeFirstLetter(text: string) {
@@ -19,13 +23,13 @@ const SidebarTaskLists = ({ tasksList, email, fetchTasksList }: {
     <ul className="flex flex-col gap-[7px] max-md:mb-4 mx-[11px] my-0">
               {tasksList.map((tasklist, index) => (
                 <div key={index} className="flex flex-row justify-between items-center">
-                  <Link href={`/to-dos/${tasklist._id}`}
+                  <Link href={`/to-dos/${tasklist.id}`}
                   className="cursor-pointer tracking-wider font-semibold text-md hover:text-gray-600
                   dark:hover:text-gray-200">
                     {capitalizeFirstLetter(`${tasklist.name}`)}
                 </Link>
 
-                <EditDeleteTaskList tasklist={tasklist} tasksList={tasksList} email={email} fetchTasksList={fetchTasksList} />
+                <EditDeleteTaskList tasklist={tasklist} tasksList={tasksList} email={email} /* fetchTasksList={fetchTasksList} */ />
                 
                 </div>
               ))}

@@ -5,64 +5,78 @@ import TaskHeader from '@/components/todosComponents/TaskHeader/TaskHeader'
 import TasksArea from '@/components/todosComponents/TasksArea/TasksArea'
 import TasksDialog from "../../../components/todosComponents/Dialogs/TaskDialog/TaskDialog";
 import TasksFooter from "../../../components/todosComponents/TaskFooter/TaskFooter";
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import React from 'react'
+import { Task, TaskList } from '@/app/data/Tasks';
 // import CircularProgress from '@mui/material/CircularProgress';
 
 
-const TasksWithId = ({ id, email }: { id: string, email: string | null | undefined }) => {
+const TasksWithId = ({ id, email,
+  tasks,
+  tasksList,
+  pageTasksList
+ }: { id: string, email: string | null | undefined,
+  tasks: Task[],
+  tasksList: TaskList[],
+  pageTasksList: TaskList | null | undefined
+  }) => {
 
-    const [tasks, setTasks] = useState([]);
-    const [tasksList, setTasksList] = useState([]);
-    const [pageTasksList, setPageTasksList] = useState([]);
+    console.log(pageTasksList)
 
-
-    const fetchTasks = async () => {
-        try {
-          const res = await axios.get(`/api/tasks-get?taskListId=${id}`);
-        console.log(res.data)
-
-        setTasks(res.data.data);
-        } catch (error) {
-          console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        fetchTasks();
-    }, []);
+    // const [tasks, setTasks] = useState([]);
+    // const [tasksList, setTasksList] = useState([]);
+    // const [pageTasksList, setPageTasksList] = useState([]);
 
 
+    // const fetchTasks = async () => {
+    //     try {
+    //       const res = await axios.get(`/api/tasks-get?taskListId=${id}`);
+    //     console.log(res.data)
 
-    const fetchTasksList = async () => {
-        const res = await axios.get(`/api/tasks-list-get`);
-        console.log(res.data)
+    //     setTasks(res.data.data);
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    // }
 
-        setTasksList(res.data.data);
-    }
+    // useEffect(() => {
+    //     fetchTasks();
+    // }, []);
 
-    useEffect(() => {
-        fetchTasksList();
-    }, []);
-
+    
 
 
 
-    const fetchPageTaskList = async () => {
-        const res = await axios.get(`/api/page-task-list-get?paramsId=${id}`);
-        console.log(res.data)
+    // const fetchTasksList = async () => {
+    //     const res = await axios.get(`/api/tasks-list-get`);
+    //     console.log(res.data)
 
-        setPageTasksList(res.data.data);
-    }
+    //     setTasksList(res.data.data);
+    // }
 
-    useEffect(() => {
-        fetchPageTaskList();
-    }, []);
+    // useEffect(() => {
+    //     fetchTasksList();
+    // }, []);
+
+
+
+
+    // const fetchPageTaskList = async () => {
+    //     const res = await axios.get(`/api/page-task-list-get?paramsId=${id}`);
+    //     console.log(res.data)
+
+    //     setPageTasksList(res.data.data);
+    // }
+
+    // useEffect(() => {
+    //     fetchPageTaskList();
+    // }, []);
 
 
 
   return (
     <div className="border flex items-center w-full h-full justify-center poppins md:min-h-screen max-md:my-10  ">
+
+      {/* <p>{ JSON.stringify(tasks, null, 2)}</p> */}
       <div
         className="border border-gray-400 flex flex-col gap-6 bg-inherit shadow-md 
       rounded-md py-6 sm:px-8 px-4 w-[98%] sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%] 2xl:w-[60%]
@@ -71,18 +85,20 @@ const TasksWithId = ({ id, email }: { id: string, email: string | null | undefin
         {/* <CircularProgress size="sm" color="primary" /> */}
         <TaskHeader pagetaskList={pageTasksList} email={email} />
         <Stats tasks={tasks}/>
-        <AllTasksHeader taskListId={id} email={email} fetchTasks={fetchTasks} />
-        <TasksArea tasks={tasks} tasksList={tasksList} fetchTasks={fetchTasks}  />
+        <AllTasksHeader taskListId={id} email={email} /* fetchTasks={fetchTasks} *//>
+        <TasksArea tasks={tasks} tasksList={tasksList} /* fetchTasks={fetchTasks} */  />
         <TasksFooter tasks={tasks} />
       </div>
     </div>
   )
 }
 
-function AllTasksHeader({ taskListId, email, fetchTasks }: {
+function AllTasksHeader({ taskListId, email, 
+  // fetchTasks
+ }: {
   taskListId: string,
   email: string | null | undefined,
-  fetchTasks: () => void
+  // fetchTasks: () => void
  }) {
 
   
@@ -94,7 +110,9 @@ function AllTasksHeader({ taskListId, email, fetchTasks }: {
         </div>
   
         
-        <TasksDialog taskListId={taskListId} email={email} fetchTasks={fetchTasks} />
+        <TasksDialog taskListId={taskListId} email={email} 
+        // fetchTasks={fetchTasks}
+         />
         
       </div>
     );

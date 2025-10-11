@@ -1,33 +1,34 @@
 'use client'
 
 import { AppLogo } from '@/components/AppLogo'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import TaskListAddDialog from '../TaskListAddDialog'
 import SidebarTaskLists from './SidebarTaskLists'
-import axios from 'axios'
+// import axios from 'axios'
 import { TaskList } from '@/app/data/Tasks'
 
-const SideBar = ({ email }: {
-  email: string | null | undefined
+const SideBar = ({ email, tasksList }: {
+  email: string | null | undefined,
+  tasksList: TaskList[]
 }) => {
 
+  
+  
 
+//   const [tasksList, setTasksList] = useState([]);
 
+//   const fetchTasksList = async () => {
+//     const res = await axios.get(`/api/tasks-list-get`);
+//     console.log(res.data)
 
-  const [tasksList, setTasksList] = useState([]);
+//     setTasksList(res.data.data); 
+// }
 
-  const fetchTasksList = async () => {
-    const res = await axios.get(`/api/tasks-list-get`);
-    console.log(res.data)
+// useEffect(() => {
+//     fetchTasksList();
+// }, []);
 
-    setTasksList(res.data.data);
-}
-
-useEffect(() => {
-    fetchTasksList();
-}, []);
-
-console.log(tasksList);
+// console.log(tasksList);
 
   // const session = await getSession();
   //   console.log(session);
@@ -36,8 +37,8 @@ console.log(tasksList);
 
   // const jTasklists = JSON.parse(JSON.stringify(tasksList));
 
-  const taskListIconSize = 17;
-  const taskListButtonClassName = "cursor-pointer active:scale-95"
+  // const taskListIconSize = 17;
+  // const taskListButtonClassName = "cursor-pointer active:scale-95"
   
 
   return (
@@ -55,11 +56,11 @@ console.log(tasksList);
             <div className="flex flex-row justify-between items-center">
             <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-100 mb-2">Tasks List</h2>
 
-            <TaskListAddDialog tasksList={tasksList} email={email} fetchTasksList={fetchTasksList} />
+            <TaskListAddDialog tasksList={tasksList} email={email} /* fetchTasksList={fetchTasksList} */ />
             
             </div>
 
-            <SidebarTaskLists tasksList={tasksList} email={email} fetchTasksList={fetchTasksList} />
+            <SidebarTaskLists tasksList={tasksList} email={email} /* fetchTasksList={fetchTasksList} */ />
             </div>
 
 
