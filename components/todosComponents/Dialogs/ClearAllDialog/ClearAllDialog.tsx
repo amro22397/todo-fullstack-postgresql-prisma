@@ -15,17 +15,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import axios from "axios";
-import { revalidatePath } from "next/cache";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const ClearAllDialog = ({tasks}: {
-   tasks: Task[]
+const ClearAllDialog = ({ /* tasks */
+  fetchTasks
+ }: {
+   tasks: Task[],
+   fetchTasks: () => void
 }) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     
 
@@ -42,7 +43,10 @@ const ClearAllDialog = ({tasks}: {
         toast({
           title: "All tasks deleted successfully"
         })
-        window.location.reload();
+        // window.location.reload();
+      })
+      .then(() => {
+        fetchTasks();
       })
       .catch((error) => {
         toast({

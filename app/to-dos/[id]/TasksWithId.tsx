@@ -87,7 +87,7 @@ const TasksWithId = ({ id, email,
         <Stats tasks={tasks}/>
         <AllTasksHeader taskListId={id} email={email} fetchTasks={fetchTasks}/>
         <TasksArea tasks={tasks} tasksList={tasksList} fetchTasks={fetchTasks}  />
-        <TasksFooter tasks={tasks} />
+        <TasksFooter tasks={tasks} fetchTasks={fetchTasks} />
       </div>
     </div>
   )
