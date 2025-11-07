@@ -2,6 +2,7 @@
 // import mongoose from "mongoose";
 
 import prisma from "@/lib/prisma";
+import { NextRequest } from "next/server";
 
 
 export async function POST(request: Request) {
@@ -35,12 +36,24 @@ export async function PUT(request: Request) {
     return Response.json(task);
 }
 
-export async function DELETE() {
+export async function DELETE(req: NextRequest) {
     // mongoose.connect(process.env.MONGO_URL as string)
 
     // const tasks = await Tasks.deleteMany({})
 
-    const tasks = await prisma.task.deleteMany()
+    const { searchParams } = new URL(req.url);
+
+    const taskListId = searchParams.get("taskListId");
+    const email = searchParams.get("email");
+
+    const tasks = await prisma.task.deleteMany({
+        where: {
+            AND: [
+                { taskListId: taskListId },
+                { userEmail: email }
+            ]
+        }
+    })
 
     return Response.json(tasks)
 }

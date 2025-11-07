@@ -8,9 +8,11 @@ import mongoose from "mongoose";
 import { Task } from "@/app/data/Tasks";
 
 
-const TaskFooter = ({tasks, fetchTasks} : {
+const TaskFooter = ({tasks, fetchTasks, id, email} : {
   tasks: Task[],
-  fetchTasks: () => void
+  fetchTasks: () => void,
+  id: string,
+  email: string
 
 }) => {
   // const { tasks } = useTasksStore();
@@ -22,7 +24,7 @@ const TaskFooter = ({tasks, fetchTasks} : {
       <div className="flex justify-between mt-5 items-center">
         <p className="text-gray-500 dark:text-gray-100 text-sm">{tasks.length} Tasks</p>
         <ClearAllDialog
-        tasks={tasks} fetchTasks={fetchTasks} />
+        tasks={tasks} fetchTasks={fetchTasks} id={id} email={email} />
       </div>
     </div>
   )

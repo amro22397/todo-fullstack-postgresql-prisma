@@ -20,10 +20,14 @@ import axios from "axios";
 import React, { useState } from "react";
 
 const ClearAllDialog = ({ /* tasks */
-  fetchTasks
+  fetchTasks,
+  id,
+  email
  }: {
    tasks: Task[],
-   fetchTasks: () => void
+   fetchTasks: () => void,
+   id: string,
+   email: string
 }) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     // const [message, setMessage] = useState("");
@@ -35,7 +39,7 @@ const ClearAllDialog = ({ /* tasks */
       e.preventDefault();
 
       setIsLoading(true)
-      axios.delete("/api/tasks")
+      axios.delete(`/api/tasks?taskListId=${id}&email=${email}`)
       .then(() => {
         setOpenDeleteDialog(false)
       })
