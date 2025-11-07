@@ -8,11 +8,11 @@ import Link from 'next/link'
 const SidebarTaskLists = ({ 
   tasksList, 
   email, 
-  // fetchTasksList
+  fetchTasksList
  }: {
   tasksList: TaskList[],
   email: string | null | undefined,
-  // fetchTasksList: () => void
+  fetchTasksList: () => void
 }) => {
 
   function capitalizeFirstLetter(text: string) {
@@ -29,7 +29,7 @@ const SidebarTaskLists = ({
                     {capitalizeFirstLetter(`${tasklist.name}`)}
                 </Link>
 
-                <EditDeleteTaskList tasklist={tasklist} tasksList={tasksList} email={email} /* fetchTasksList={fetchTasksList} */ />
+                <EditDeleteTaskList tasklist={tasklist} tasksList={tasksList} email={email} fetchTasksList={fetchTasksList} />
                 
                 </div>
               ))}

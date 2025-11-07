@@ -17,6 +17,7 @@ import { FaPlus } from "react-icons/fa";
 import { toast } from "sonner"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 // import { useUserStore } from "@/app/stores/useUserStore";
 
 const TaskDialog = ({ taskListId, email, 
@@ -118,7 +119,7 @@ const TaskDialog = ({ taskListId, email,
             <DialogFooter className="mt-11">
               <Button type="submit" className="flex items-center gap-1 text-white">
                 {loading ? (
-                  <div>loading...</div>
+                  <Loader2 className='animate-spin' />
                 ) : (
                   <div className="flex items-center gap-1">
                     <span>Save task</span>

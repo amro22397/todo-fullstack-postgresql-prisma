@@ -8,14 +8,15 @@ import { Task } from '@/app/data/Tasks';
 
 
 const CheckBoxComponent = ({ singleTask, 
-  // fetchTasks, 
+  fetchTasks, 
   handleCheckboxChange, loading }: { 
   singleTask: Task,
-  // fetchTasks: () => void,
+  fetchTasks: () => void,
   handleCheckboxChange: () => void
   loading: boolean
 }) => {
     
+  console.log(fetchTasks)
 
     // const router = useRouter();
 

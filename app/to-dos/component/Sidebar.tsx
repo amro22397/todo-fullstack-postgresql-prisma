@@ -1,32 +1,33 @@
 'use client'
 
 import { AppLogo } from '@/components/AppLogo'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TaskListAddDialog from '../TaskListAddDialog'
 import SidebarTaskLists from './SidebarTaskLists'
 // import axios from 'axios'
 import { TaskList } from '@/app/data/Tasks'
+import axios from 'axios'
 
-const SideBar = ({ email, tasksList }: {
+const SideBar = ({ email, /* tasksList */ }: {
   email: string | null | undefined,
-  tasksList: TaskList[]
+  // tasksList: TaskList[]
 }) => {
 
   
   
 
-//   const [tasksList, setTasksList] = useState([]);
+  const [tasksList, setTasksList] = useState([]);
 
-//   const fetchTasksList = async () => {
-//     const res = await axios.get(`/api/tasks-list-get`);
-//     console.log(res.data)
+  const fetchTasksList = async () => {
+    const res = await axios.get(`/api/tasks-list-get`);
+    console.log(res.data)
 
-//     setTasksList(res.data.data); 
-// }
+    setTasksList(res.data.data); 
+}
 
-// useEffect(() => {
-//     fetchTasksList();
-// }, []);
+useEffect(() => {
+    fetchTasksList();
+}, []);
 
 // console.log(tasksList);
 
@@ -56,11 +57,11 @@ const SideBar = ({ email, tasksList }: {
             <div className="flex flex-row justify-between items-center">
             <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-100 mb-2">Tasks List</h2>
 
-            <TaskListAddDialog tasksList={tasksList} email={email} /* fetchTasksList={fetchTasksList} */ />
+            <TaskListAddDialog tasksList={tasksList} email={email} fetchTasksList={fetchTasksList} />
             
             </div>
 
-            <SidebarTaskLists tasksList={tasksList} email={email} /* fetchTasksList={fetchTasksList} */ />
+            <SidebarTaskLists tasksList={tasksList} email={email} fetchTasksList={fetchTasksList} />
             </div>
 
 

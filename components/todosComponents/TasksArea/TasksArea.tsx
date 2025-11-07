@@ -6,7 +6,7 @@ import ComboboxDemo from "./PriorityCombobox";
 import TasksOptions from "./TasksOptions";
 // import { useTasksStore } from "@/app/stores/useTasksStore";
 import { Task, TaskList } from "@/app/data/Tasks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUmbrellaBeach } from "react-icons/fa6";
 import CheckBoxComponent from "./CheckBoxComponent";
 import axios from "axios";
@@ -16,11 +16,11 @@ import axios from "axios";
 
 
 const TasksArea = ({ tasks, tasksList, 
-  // fetchTasks
+  fetchTasks
  }: {
   tasks: Task[],
   tasksList?: TaskList[],
-  // fetchTasks: () => void
+  fetchTasks: () => void
 }) => {
  // const { tasks, fetchTasks } = useTasksStore();
 
@@ -53,7 +53,7 @@ const TasksArea = ({ tasks, tasksList,
           return (
             <div className="" key={index}>
               <SingleTask key={singleTask.id} singleTask={singleTask} id={singleTask.id} 
-              // fetchTasks={fetchTasks}
+              fetchTasks={fetchTasks}
                />
             </div>
           )})}
@@ -65,11 +65,11 @@ const TasksArea = ({ tasks, tasksList,
 
 
 export function SingleTask({ singleTask, id, 
-  // fetchTasks
+  fetchTasks
  }: { 
   singleTask: Task,
   id: string,
-  // fetchTasks: () => void
+  fetchTasks: () => void
  }) {
 
   console.log(id);
@@ -77,18 +77,18 @@ export function SingleTask({ singleTask, id,
   console.log(singleTask)
   
 
-//   const [task, setTask] = useState({});
+  const [task, setTask] = useState({});
   
-//   const fetchTasksByID = async () => {
-//     const res = await axios.get(`/api/task-by-id?taskId=${id}`);
-//     console.log(res.data)
+  const fetchTasksByID = async () => {
+    const res = await axios.get(`/api/task-by-id?taskId=${id}`);
+    console.log(res.data)
 
-//     setTask(res.data.data);
-// }
+    setTask(res.data.data);
+}
 
-// useEffect(() => {
-//   fetchTasksByID();
-// }, [id]);  
+useEffect(() => {
+  fetchTasksByID();
+}, [id]);  
 
 
   const lowerOpacity = singleTask.status === "completed" && "opacity-65"
@@ -104,11 +104,11 @@ export function SingleTask({ singleTask, id,
     })
     .then(() => {
         setLoading(false);
-        // fetchTasks();
+        fetchTasks();
     })
-    .then(() => {
-        window.location.reload()
-    })
+//     .then(() => {
+//         window.location.reload()
+//     })
     .catch((error) => {
         console.log(error);
     })
@@ -122,7 +122,7 @@ export function SingleTask({ singleTask, id,
       <div className="flex items-center gap-4">
 
         <CheckBoxComponent singleTask={singleTask} 
-        // fetchTasks={fetchTasks} 
+        fetchTasks={fetchTasks} 
         handleCheckboxChange={handleCheckboxChange}
         loading={loading} />
 
@@ -148,11 +148,11 @@ export function SingleTask({ singleTask, id,
       </div>
       <div className="flex md:gap-3 items-center ">
       <ComboboxDemo singleTask={singleTask} 
-      // fetchTasks={fetchTasks}
+      fetchTasks={fetchTasks}
        className="md:block hidden" />
       <TasksOptions singleTask={singleTask} 
       // id={id} 
-      // fetchTasks={fetchTasks}
+      fetchTasks={fetchTasks}
        />
       </div>
     </div>

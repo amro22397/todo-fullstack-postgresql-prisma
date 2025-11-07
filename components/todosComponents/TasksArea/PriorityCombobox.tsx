@@ -38,10 +38,10 @@ const priorities = [
 ];
 
 const PriorityCombobox = ({ singleTask, 
-  // fetchTasks,
+  fetchTasks,
    className }: { 
   singleTask: Task,
-  // fetchTasks: () => void,
+  fetchTasks: () => void,
   className?: string,
  }) => {
 
@@ -71,11 +71,11 @@ const PriorityCombobox = ({ singleTask,
       })
       .then(() => {
         setIsLoading(false);
-        // fetchTasks();
+        fetchTasks();
       })
-      .then(() => {
-        window.location.reload()
-    })
+//       .then(() => {
+//         window.location.reload()
+//     })
       .then(() => {
         setOpen(false);
       })

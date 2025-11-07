@@ -54,11 +54,11 @@ import axios from "axios";
 const TasksOptions = ({
   singleTask,
   // id,
-  // fetchTasks,
+  fetchTasks,
 }: {
   singleTask: Task;
   // id: string;
-  // fetchTasks: () => void;
+  fetchTasks: () => void;
 }) => {
 
   {/*
@@ -101,11 +101,11 @@ const TasksOptions = ({
     })
     .then(() => {
       setIsTaskDialogOpened(false);
-      // fetchTasks();
+      fetchTasks();
     })
-    .then(() => {
-        window.location.reload()
-    })
+//     .then(() => {
+//         window.location.reload()
+//     })
     .catch((error) => {
 
       toast.error(`${error}`)
@@ -151,15 +151,15 @@ const TasksOptions = ({
     .then(() => {
       setIsDropdownOpen(false);
       setIsAlertDialogOpen(false)
-      // fetchTasks();
+      fetchTasks();
     })
     .then(() => {
      
       toast.success("Task deleted successfully")
     })
-    .then(() => {
-        window.location.reload()
-    })
+//     .then(() => {
+//         window.location.reload()
+//     })
     .catch((error) => {
       
       toast.error(`${error}`)
@@ -195,7 +195,7 @@ const TasksOptions = ({
               <div className="">
                 <ComboboxDemo
                   singleTask={singleTask}
-                  // fetchTasks={fetchTasks}
+                  fetchTasks={fetchTasks}
                   className="text-center"
                 />
               </div>

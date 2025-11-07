@@ -5,7 +5,7 @@ import SideBar from "./component/Sidebar";
 import { getSession } from "../actions/getUser";
 // import tasksList from "@/models/tasks-list";
 // import { TaskList } from "../data/Tasks";
-import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
 
 
 // const poppins = Poppins({
@@ -32,16 +32,16 @@ export default async function RootLayout({
       // const tasksLists = await tasksList.find({userEmail: {$in: [session?.user?.email]}})
       // const jTasklists = JSON.parse(JSON.stringify(tasksLists));
 
-      const tasksList = await prisma.taskList.findMany({
-        where: {
-          userEmail: session?.user?.email
-        }
-      })
+      // const tasksList = await prisma.taskList.findMany({
+      //   where: {
+      //     userEmail: session?.user?.email
+      //   }
+      // })
 
   return (
     
         <div className="flex md:flex-row flex-col">
-        <SideBar email={session?.user?.email} tasksList={tasksList} />
+        <SideBar email={session?.user?.email} /* tasksList={tasksList} */ />
         {children}
         </div>
         

@@ -36,11 +36,11 @@ import { usePathname } from 'next/navigation'
   
 
 const EditDeleteTaskList = ({ tasklist, tasksList, email, 
-  // fetchTasksList
+  fetchTasksList
  }: {
   tasklist: TaskList, tasksList: TaskList[],
   email: string | null | undefined,
-  // fetchTasksList: () => void,
+  fetchTasksList: () => void,
 }) => {
 
     // const router = useRouter();
@@ -81,12 +81,12 @@ const EditDeleteTaskList = ({ tasklist, tasksList, email,
         toast.success("Task List updated successfully")
 
     })
-    .then(() => {
-        window.location.reload()
-    })
     // .then(() => {
-    //   fetchTasksList();
+    //     window.location.reload()
     // })
+    .then(() => {
+      fetchTasksList();
+    })
     .catch((error) => {
         
         toast.error(`${error}`)
@@ -114,12 +114,12 @@ const EditDeleteTaskList = ({ tasklist, tasksList, email,
 
       toast.success(`Task List deleted successfully`)
   })
-  .then(() => {
-        window.location.reload()
-    })
   // .then(() => {
-  //   fetchTasksList();
-  // })
+  //       window.location.reload()
+  //   })
+  .then(() => {
+    fetchTasksList();
+  })
     .catch((error) => {
         
         toast.error(`${error}`)

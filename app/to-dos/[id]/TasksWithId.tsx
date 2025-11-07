@@ -5,71 +5,71 @@ import TaskHeader from '@/components/todosComponents/TaskHeader/TaskHeader'
 import TasksArea from '@/components/todosComponents/TasksArea/TasksArea'
 import TasksDialog from "../../../components/todosComponents/Dialogs/TaskDialog/TaskDialog";
 import TasksFooter from "../../../components/todosComponents/TaskFooter/TaskFooter";
-import React from 'react'
-import { Task, TaskList } from '@/app/data/Tasks';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 // import CircularProgress from '@mui/material/CircularProgress';
 
 
 const TasksWithId = ({ id, email,
-  tasks,
-  tasksList,
-  pageTasksList
+  // tasks,
+  // tasksList,
+  // pageTasksList
  }: { id: string, email: string | null | undefined,
-  tasks: Task[],
-  tasksList: TaskList[],
-  pageTasksList: TaskList | null | undefined
+  // tasks: Task[],
+  // tasksList: TaskList[],
+  // pageTasksList: TaskList | null | undefined
   }) => {
 
-    console.log(pageTasksList)
+    // console.log(pageTasksList)
 
-    // const [tasks, setTasks] = useState([]);
-    // const [tasksList, setTasksList] = useState([]);
-    // const [pageTasksList, setPageTasksList] = useState([]);
+    const [tasks, setTasks] = useState([]);
+    const [tasksList, setTasksList] = useState([]);
+    const [pageTasksList, setPageTasksList] = useState([]);
 
 
-    // const fetchTasks = async () => {
-    //     try {
-    //       const res = await axios.get(`/api/tasks-get?taskListId=${id}`);
-    //     console.log(res.data)
+    const fetchTasks = async () => {
+        try {
+          const res = await axios.get(`/api/tasks-get?taskListId=${id}`);
+        console.log(res.data)
 
-    //     setTasks(res.data.data);
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    // }
+        setTasks(res.data.data);
+        } catch (error) {
+          console.log(error)
+        }
+    }
 
-    // useEffect(() => {
-    //     fetchTasks();
-    // }, []);
+    useEffect(() => {
+        fetchTasks();
+    }, []);
 
     
 
 
 
-    // const fetchTasksList = async () => {
-    //     const res = await axios.get(`/api/tasks-list-get`);
-    //     console.log(res.data)
+    const fetchTasksList = async () => {
+        const res = await axios.get(`/api/tasks-list-get`);
+        console.log(res.data)
 
-    //     setTasksList(res.data.data);
-    // }
+        setTasksList(res.data.data);
+    }
 
-    // useEffect(() => {
-    //     fetchTasksList();
-    // }, []);
-
-
+    useEffect(() => {
+        fetchTasksList();
+    }, []);
 
 
-    // const fetchPageTaskList = async () => {
-    //     const res = await axios.get(`/api/page-task-list-get?paramsId=${id}`);
-    //     console.log(res.data)
 
-    //     setPageTasksList(res.data.data);
-    // }
 
-    // useEffect(() => {
-    //     fetchPageTaskList();
-    // }, []);
+    const fetchPageTaskList = async () => {
+        const res = await axios.get(`/api/page-task-list-get?paramsId=${id}`);
+        console.log(res.data)
+
+        setPageTasksList(res.data.data);
+    }
+
+    useEffect(() => {
+        fetchPageTaskList();
+    }, []);
 
 
 
@@ -85,8 +85,8 @@ const TasksWithId = ({ id, email,
         {/* <CircularProgress size="sm" color="primary" /> */}
         <TaskHeader pagetaskList={pageTasksList} email={email} />
         <Stats tasks={tasks}/>
-        <AllTasksHeader taskListId={id} email={email} /* fetchTasks={fetchTasks} *//>
-        <TasksArea tasks={tasks} tasksList={tasksList} /* fetchTasks={fetchTasks} */  />
+        <AllTasksHeader taskListId={id} email={email} fetchTasks={fetchTasks}/>
+        <TasksArea tasks={tasks} tasksList={tasksList} fetchTasks={fetchTasks}  />
         <TasksFooter tasks={tasks} />
       </div>
     </div>
@@ -94,11 +94,11 @@ const TasksWithId = ({ id, email,
 }
 
 function AllTasksHeader({ taskListId, email, 
-  // fetchTasks
+  fetchTasks
  }: {
   taskListId: string,
   email: string | null | undefined,
-  // fetchTasks: () => void
+  fetchTasks: () => void
  }) {
 
   
@@ -111,7 +111,7 @@ function AllTasksHeader({ taskListId, email,
   
         
         <TasksDialog taskListId={taskListId} email={email} 
-        // fetchTasks={fetchTasks}
+        fetchTasks={fetchTasks}
          />
         
       </div>

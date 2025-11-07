@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 import { TaskList } from "../data/Tasks";
@@ -121,7 +121,7 @@ const TaskListAddDialog = ({
 
           <DialogFooter className="mt-11">
             <Button type="submit" className="flex items-center gap-1">
-              {loading ? <div>loading...</div> : <span>Save task</span>}
+              {loading ? <Loader2 className='animate-spin' /> : <span>Save task</span>}
             </Button>
           </DialogFooter>
         </form>
