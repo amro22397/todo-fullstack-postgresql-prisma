@@ -50,6 +50,7 @@ import {
 
 // import { AppContext } from "@/context/AppContext";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 
 const TasksOptions = ({
   singleTask,
@@ -245,7 +246,7 @@ const TasksOptions = ({
             <DialogFooter className="mt-11">
               <Button type="submit" className="flex items-center gap-1">
                 {loading ? (
-                  <div>loading...</div>
+                  <Loader2 className='animate-spin' />
                 ) : (
                   <div className="flex items-center gap-1">
                     <span>Save task</span>
@@ -273,7 +274,7 @@ const TasksOptions = ({
       <AlertDialogCancel onClick={() => setIsAlertDialogOpen(false)}>Cancel</AlertDialogCancel>
       <AlertDialogAction onClick={handleDelete}>
         {loading ? (
-          <div className="">loading...</div>
+          <Loader2 className='animate-spin' />
         ) : (
           <div className="">Delete</div>
         )}

@@ -3,7 +3,7 @@
 import { getSession } from "@/app/actions/getUser";
 import { redirect } from "next/navigation";
 import TasksWithId from "./TasksWithId";
-import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
 
 interface TaskListId {
   id: string;

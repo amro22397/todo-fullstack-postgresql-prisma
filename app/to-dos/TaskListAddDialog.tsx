@@ -22,11 +22,11 @@ import { useRouter } from "next/navigation";
 const TaskListAddDialog = ({
   tasksList,
   email,
-  // fetchTasksList,
+  fetchTasksList,
 }: {
   tasksList: TaskList[];
   email: string | null | undefined;
-  // fetchTasksList: () => void;
+  fetchTasksList: () => void;
 }) => {
   const router = useRouter();
 
@@ -56,14 +56,14 @@ const TaskListAddDialog = ({
       .post("/api/tasks-list", formData)
       .then(() => {
         setIsAddTaskListDialogOpen(false);
-        // fetchTasksList();
+        fetchTasksList();
       })
       .then(() => {
         toast.success("Task Added successfully");
       })
-      .then(() => {
-        window.location.reload()
-    })
+//       .then(() => {
+//         window.location.reload()
+//     })
       .catch((error) => {
         toast.error(`${error}`);
       })

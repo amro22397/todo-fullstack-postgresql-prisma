@@ -21,11 +21,11 @@ import { Loader2 } from "lucide-react";
 // import { useUserStore } from "@/app/stores/useUserStore";
 
 const TaskDialog = ({ taskListId, email, 
-  // fetchTasks
+  fetchTasks
  }: { 
   taskListId?: string, 
   email: string | null | undefined,
-  // fetchTasks: () => void
+  fetchTasks: () => void
  }) => {
 
     const [formData, setFormData] = useState({
@@ -63,15 +63,15 @@ const TaskDialog = ({ taskListId, email,
     axios.post("/api/tasks", formData)
     .then(() => {
       setIsTaskDialogOpened(false);
-      // fetchTasks();
+      fetchTasks();
     })
     .then(() => {
       
       toast.success("Task added successfully")
     })
-    .then(() => {
-        window.location.reload()
-    })
+//     .then(() => {
+//         window.location.reload()
+//     })
     
     .catch((error) => {
       

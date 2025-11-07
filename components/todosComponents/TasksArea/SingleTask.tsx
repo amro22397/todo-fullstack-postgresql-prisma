@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React from 'react'
+import CheckBoxComponent from './CheckBoxComponent';
+import { Badge } from '@/components/ui/badge';
+import TasksOptions from './TasksOptions';
 
 const SingleTask = ({ singleTask, id, 
-  // fetchTasks
+  fetchTasks
  }: { 
   singleTask: Task,
   id: string,
-  // fetchTasks: () => void
+  fetchTasks: () => void
  }) => {
 
 
@@ -23,7 +26,7 @@ const SingleTask = ({ singleTask, id,
         })
         .then(() => {
             setLoading(false);
-            // fetchTasks();
+            fetchTasks();
         })
         .catch((error) => {
             console.log(error);
