@@ -37,7 +37,7 @@ const Stats = ({tasks} : { tasks: Task[] }) => {
       }, [tasks]);
       
   return (
-    <div className="flex gap-5 py-[6px] px-4">
+    <div className="flex sm:flex-row flex-col items-center justify-center gap-5 py-[6px] lg:px-4 px-0">
       {statsArray.map((stat, index) => (
         <div key={index} className="flex w-full     gap-5  ">
           <SingleStatCard stat={stat} key={index} />

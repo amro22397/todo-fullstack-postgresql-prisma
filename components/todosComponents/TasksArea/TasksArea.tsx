@@ -51,7 +51,9 @@ const TasksArea = ({ tasks, tasksList,
 
             console.log(singleTask)
           return (
-            <div className="" key={index}>
+            <div className="" key={index}
+            // overflow-y-hidden hover:overflow-y-auto
+            >
               <SingleTask key={singleTask.id} singleTask={singleTask} id={singleTask.id} 
               fetchTasks={fetchTasks}
                />

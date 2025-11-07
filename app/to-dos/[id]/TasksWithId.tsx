@@ -74,7 +74,7 @@ const TasksWithId = ({ id, email,
 
 
   return (
-    <div className="border flex items-center w-full h-full justify-center poppins md:min-h-screen max-md:my-10  ">
+    <div className="border flex items-center w-full h-full justify-center poppins lg:min-h-screen max-lg:my-10  ">
 
       {/* <p>{ JSON.stringify(tasks, null, 2)}</p> */}
       <div

@@ -40,7 +40,7 @@ export default async function RootLayout({
 
   return (
     
-        <div className="flex md:flex-row flex-col">
+        <div className="flex lg:flex-row flex-col">
         <SideBar email={session?.user?.email} /* tasksList={tasksList} */ />
         {children}
         </div>

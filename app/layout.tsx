@@ -40,7 +40,7 @@ export default function RootLayout({
       {/* <script src="https://unpkg.com/@tailwindcss/browser@4"></script> */}
       
       <body
-        className={poppins.variable}
+        className={`${poppins.variable} overflow-x-hidden`}
       >
         <AppProvider session>
           <AppContextProvider>

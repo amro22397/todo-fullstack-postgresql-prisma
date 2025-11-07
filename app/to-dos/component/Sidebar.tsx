@@ -43,12 +43,12 @@ useEffect(() => {
   
 
   return (
-    <div className="max-md:z-50
-    md:w-[400px] w-[100%] mx-auto sm:w-[95%] 
-     md:h-screen border-r border-solid px-3 sm:px-14
+    <div className="max-lg:z-50
+    lg:w-[400px] sm:w-[95%] w-[100%] mx-auto  
+     lg:h-screen border-r border-solid px-3 sm:px-14
      dark:bg-zinc-700
     
-        border-gray-200 dark:border-zinc-900 md:px-[11px] flex flex-col gap-4">
+        border-gray-200 dark:border-zinc-900 lg:px-[11px] flex flex-col gap-4">
 
 
             <AppLogo className="mt-5"/>
