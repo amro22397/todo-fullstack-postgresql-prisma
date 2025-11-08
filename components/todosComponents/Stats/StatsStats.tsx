@@ -26,8 +26,8 @@ const Stats = ({tasks} : { tasks: Task[] }) => {
       useEffect(() => { 
 
     setStatsArray([
-      { label: "Completed", unit: "Tasks", counter: getCompletedTasks },
-      { label: "Pending", unit: "Tasks", counter: getPendingTasks },
+      { label: "Completed", unit: getCompletedTasks === 0 ? "" : getCompletedTasks === 1 ? "Task" : "Tasks", counter: getCompletedTasks },
+      { label: "Pending", unit: getPendingTasks === 0 ? "" : getPendingTasks === 1 ? "Task" : "Tasks", counter: getPendingTasks },
       {
         label: "Progress",
         unit: "%",
