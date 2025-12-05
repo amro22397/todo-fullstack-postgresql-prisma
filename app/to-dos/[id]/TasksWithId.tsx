@@ -79,7 +79,7 @@ const TasksWithId = ({ id, email,
       {/* <p>{ JSON.stringify(tasks, null, 2)}</p> */}
       <div
         className="border border-gray-400 flex flex-col gap-6 bg-inherit shadow-md 
-      rounded-md py-6 sm:px-8 px-4 w-[98%] sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%] 2xl:w-[60%]
+      rounded-md py-6 sm:px-8 px-4 w-[98%] sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-[80%] 2xl:w-[65%]
       "
       >
         {/* <CircularProgress size="sm" color="primary" /> */}

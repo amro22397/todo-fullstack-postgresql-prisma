@@ -184,7 +184,7 @@ const TasksOptions = ({
               <div className="">
                 <Badge
                   variant="outline"
-                  className="text-[16px] opacity-55 px-0 py-[1px]"
+                  className="text-[16px] opacity-55 px-[10px] py-[1px]"
                 >
                   {singleTask.status}
                 </Badge>

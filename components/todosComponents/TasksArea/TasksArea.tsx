@@ -55,7 +55,7 @@ const TasksArea = ({ tasks, tasksList,
             // overflow-y-hidden hover:overflow-y-auto
             >
               <SingleTask key={singleTask.id} singleTask={singleTask} id={singleTask.id} 
-              fetchTasks={fetchTasks}
+              fetchTasks={fetchTasks} index={index}
                />
             </div>
           )})}
@@ -67,11 +67,13 @@ const TasksArea = ({ tasks, tasksList,
 
 
 export function SingleTask({ singleTask, id, 
-  fetchTasks
+  fetchTasks,
+  index
  }: { 
   singleTask: Task,
   id: string,
-  fetchTasks: () => void
+  fetchTasks: () => void,
+  index: number
  }) {
 
   console.log(id);
@@ -121,7 +123,11 @@ useEffect(() => {
     <div
       className={`flex items-center px-0 my-3 rounded-md w-full justify-between mb-0 ${lowerOpacity}`}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4"
+      // relative
+      >
+
+        {/* <span className="text-xs absolute left-0 top-0">{index}</span> */}
 
         <CheckBoxComponent singleTask={singleTask} 
         fetchTasks={fetchTasks} 

@@ -42,7 +42,7 @@ const Stats = ({tasks} : { tasks: Task[] }) => {
         <div key={index} className="flex w-full     gap-5  ">
           <SingleStatCard stat={stat} key={index} allTasks={tasks.length} />
           {index < statsArray.length - 1 && (
-            <Separator orientation="vertical" className="h-auto" />
+            <Separator orientation="vertical" className="h-auto max-sm:hidden" />
           )}
         </div>
       ))}

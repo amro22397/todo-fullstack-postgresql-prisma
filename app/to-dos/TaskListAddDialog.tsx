@@ -59,7 +59,7 @@ const TaskListAddDialog = ({
         fetchTasksList();
       })
       .then(() => {
-        toast.success("Task Added successfully");
+        toast.success("Task List Added successfully");
       })
 //       .then(() => {
 //         window.location.reload()
@@ -96,7 +96,7 @@ const TaskListAddDialog = ({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Tasks List</DialogTitle>
+          <DialogTitle>Add Task List</DialogTitle>
           <DialogDescription>
             Add a new task here. Click save when you&apos;re done.
           </DialogDescription>

@@ -13,7 +13,7 @@ const TaskHeader = ({ pagetaskList, email }: {pageTasksList?: TaskList, email: s
     <div className="flex lg:flex-row flex-col justify-between items-center mb-0">
       <AppLogo />
       <div className="flex items-center ">
-      <div className="flex flex-col gap-0 mr-3 md:hidden lg:flex">
+      <div className="flex flex-col gap-0 mr-3">
           <span className="font-semibold">{pagetaskList?.name}</span>
         </div>
         <SearchButton />
