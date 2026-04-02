@@ -45,7 +45,7 @@ const EditDeleteTaskList = ({ tasklist, tasksList, email,
 
     // const router = useRouter();
 
-    const pathname = usePathname();
+    const pathname = usePathname() as any;
 
     const taskListIconSize = 17;
   const taskListButtonClassName = "cursor-pointer active:scale-95"
