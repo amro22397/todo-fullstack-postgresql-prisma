@@ -142,7 +142,8 @@ useEffect(() => {
             }} */
             htmlFor="task"
             className="md:text-md xl:text-lg font-semibold cursor-pointer hover:text-primary
-            text-md"
+            text-md sm:max-w-[85%]"
+            ///////////////////////////
             onClick={handleCheckboxChange}
           >
             {singleTask.name}
