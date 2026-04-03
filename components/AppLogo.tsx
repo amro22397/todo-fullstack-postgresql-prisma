@@ -20,3 +20,5 @@ export function AppLogo({className}: {className?: string}) {
     </div>
   );
 }
+
+//
