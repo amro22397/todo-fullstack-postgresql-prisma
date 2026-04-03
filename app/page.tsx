@@ -13,7 +13,9 @@ const page = async () => {
   }
 
   return (
-    <div className='flex justify-center items-center h-screen poppins'>
+    <div className='flex justify-center  items-center poppins'
+    //  h-screen
+    >
       <LoginPage />
       <div className=""></div>
     </div>

@@ -27,7 +27,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // const tasksList = await TasksList.find({userEmail: {$in: [session?.user?.email]}});
 
         const tasksList = await prisma.taskList.findMany({
-            where: { userEmail: session?.user?.email }
+            where: { userEmail: session?.user?.email },
+            orderBy: { createdAt: "desc" },
         })
       
         return res.status(200).json({

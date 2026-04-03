@@ -25,7 +25,8 @@ const SidebarTaskLists = ({
   // const getAli
 
   return (
-    <ul className="flex flex-col gap-[7px] max-md:mb-4 mx-[11px] my-0">
+    <ul className="flex flex-col gap-[7px] max-md:mb-4 mx-[11px] my-0
+    sm:h-screen h-[525px] overflow-y-hidden hover:overflow-y-auto max-sm:overflow-y-auto">
       {/* <pre className="">{JSON.stringify(params, null, 2)}</pre> */}
 
       <div className="flex flex-row justify-between items-center">

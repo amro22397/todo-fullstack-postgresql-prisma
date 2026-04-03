@@ -134,7 +134,7 @@ useEffect(() => {
         handleCheckboxChange={handleCheckboxChange}
         loading={loading} />
 
-        <div className="flex flex-row gap-[6px] items-center justify-center">
+        <div className="flex flex-row gap-[6px] items-start justify-center">
         <label
            /* onClick={() => {
               //setTaskSelected(singleTask);
@@ -142,7 +142,7 @@ useEffect(() => {
             }} */
             htmlFor="task"
             className="md:text-md xl:text-lg font-semibold cursor-pointer hover:text-primary
-            text-md sm:max-w-[85%]"
+            text-md md:max-w-[75%] xl:max-w-[85%] 2xl:max-w-full"
             ///////////////////////////
             onClick={handleCheckboxChange}
           >
