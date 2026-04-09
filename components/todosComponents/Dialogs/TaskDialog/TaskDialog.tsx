@@ -45,7 +45,7 @@ const TaskDialog = ({ taskListId, email,
     useEffect(() => {
       setFormData({
         name: "",
-      priority : "medium",
+      priority: "medium",
       status: "in progress",
       userEmail: email || "",
       taskListId: taskListId || "",
@@ -68,6 +68,8 @@ const TaskDialog = ({ taskListId, email,
     .then(() => {
       
       toast.success("Task added successfully")
+
+      localStorage.setItem("name", "")
     })
 //     .then(() => {
 //         window.location.reload()

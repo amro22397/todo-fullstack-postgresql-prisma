@@ -1,4 +1,3 @@
-
 // import { useTasksStore } from "@/app/stores/useTasksStore";
 
 import { Task } from "@/app/data/Tasks";
@@ -18,43 +17,65 @@ import { FieldErrors, FieldValues, useFormContext } from "react-hook-form";
 import { BiSolidError } from "react-icons/bi";
 import { FaCircle } from "react-icons/fa6";
 
-
-
-const TaskForm = ({ isTaskDialogOpened, formData, setFormData, singleTask }: {
-  isTaskDialogOpened: boolean, formData: any, setFormData: any, singleTask?: Task
+const TaskForm = ({
+  isTaskDialogOpened,
+  formData,
+  setFormData,
+  singleTask,
+}: {
+  isTaskDialogOpened: boolean;
+  formData: any;
+  setFormData: any;
+  singleTask?: Task;
 }) => {
-
   const session = useSession();
   console.log(session);
-
-  
 
   console.log(formData);
 
   return (
     <div className="flex flex-col gap-6 mt-8">
-      <TaskName name={singleTask?.name || formData.name} setName={(e: any) => setFormData({
-        ...formData,
-        name: e.target.value,
-      })} />
+      <TaskName
+        name={singleTask?.name || localStorage.getItem("name")|| formData.name}
+        setName={(e: any) => {
+          setFormData({
+            ...formData,
+            name: e.target.value,
+          })
+
+          if (!singleTask) {
+            localStorage.setItem("name", e.target.value)
+          }  
+        }
+        }
+      />
       <div className="grid grid-cols-2 gap-6">
-        <TaskPriority isTaskDialogOpened={isTaskDialogOpened} selected={singleTask?.priority || formData.priority} setSelected={(e: any) => setFormData({
-          ...formData,
-          priority: e,
-        })} />
-        <TaskStatus isTaskDialogOpened={isTaskDialogOpened} selectedStatus={singleTask?.status || formData.status} setSelectedStatus={(e: any) => setFormData({
-          ...formData,
-          status: e,
-        })} />
+        <TaskPriority
+          isTaskDialogOpened={isTaskDialogOpened}
+          selected={singleTask?.priority || formData.priority}
+          setSelected={(e: any) =>
+            setFormData({
+              ...formData,
+              priority: e,
+            })
+          }
+        />
+        <TaskStatus
+          isTaskDialogOpened={isTaskDialogOpened}
+          selectedStatus={singleTask?.status || formData.status}
+          setSelectedStatus={(e: any) =>
+            setFormData({
+              ...formData,
+              status: e,
+            })
+          }
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-
-function TaskName({name, setName}: {name: string, setName: any}) {
-  
-
+function TaskName({ name, setName }: { name: string; setName: any }) {
   return (
     <div>
       <Label htmlFor="taskName">Task Name</Label>
@@ -72,11 +93,16 @@ function TaskName({name, setName}: {name: string, setName: any}) {
   );
 }
 
-
-function TaskPriority({isTaskDialogOpened, selected, setSelected}: {
-  isTaskDialogOpened : boolean, selected: string, setSelected: any
+function TaskPriority({
+  isTaskDialogOpened,
+  selected,
+  setSelected,
+}: {
+  isTaskDialogOpened: boolean;
+  selected: string;
+  setSelected: any;
 }) {
- /* const {
+  /* const {
     setValue,
     watch,
     trigger,
@@ -85,10 +111,7 @@ function TaskPriority({isTaskDialogOpened, selected, setSelected}: {
 
   // const { isTaskDialogOpened, taskSelected } = useTasksStore();
 
- //  const selectedPriority = watch("priority") || "low";
-
-
- 
+  //  const selectedPriority = watch("priority") || "low";
 
   // useEffect(() => {
   //   if (isTaskDialogOpened /* && !taskSelected */) {
@@ -139,8 +162,14 @@ function TaskPriority({isTaskDialogOpened, selected, setSelected}: {
   );
 }
 
-function TaskStatus({ isTaskDialogOpened, selectedStatus, setSelectedStatus }: {
-  isTaskDialogOpened : boolean, selectedStatus: string, setSelectedStatus: any
+function TaskStatus({
+  isTaskDialogOpened,
+  selectedStatus,
+  setSelectedStatus,
+}: {
+  isTaskDialogOpened: boolean;
+  selectedStatus: string;
+  setSelectedStatus: any;
 }) {
   /* const {
     setValue,
@@ -154,9 +183,6 @@ function TaskStatus({ isTaskDialogOpened, selectedStatus, setSelectedStatus }: {
   // const selectedStatus = watch("status") || "in progress";
   // console.log(selectedStatus);
   // Set "in progress" status when the task dialog is opened
-
-
-  
 
   // useEffect(() => {
   //   if (isTaskDialogOpened /* && !taskSelected */) {
@@ -207,5 +233,4 @@ function TaskStatus({ isTaskDialogOpened, selectedStatus, setSelectedStatus }: {
   );
 } */
 
-
-export default TaskForm
+export default TaskForm;
