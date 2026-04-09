@@ -45,8 +45,8 @@ const TaskDialog = ({ taskListId, email,
     useEffect(() => {
       setFormData({
         name: "",
-      priority : "",
-      status: "",
+      priority : "medium",
+      status: "in progress",
       userEmail: email || "",
       taskListId: taskListId || "",
       userId: "",
